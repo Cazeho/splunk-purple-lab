@@ -1,0 +1,20 @@
+---
+# This playbook install yaramail for processing email phishing
+
+- name: clone yaramail repository
+  git:
+    repo: https://github.com/seanthegeek/yaramail.git
+    dest: ~/middleware/yaramail
+    clone: yes
+  become_user: ubuntu
+
+- name: install pip3
+  apt: name=python3-pip state=present 
+
+- name: run setup file for yaramail
+  become_user: ubuntu
+  command: sh ~/middleware/yaramail/setup.sh
+  
+- name: install yara-mail python package
+  become_user: ubuntu
+  command: pip3 install yara-mail

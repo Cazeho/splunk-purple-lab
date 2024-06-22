@@ -1,0 +1,13 @@
+---
+
+- set_fact:
+    technique: "{{ item }}"
+
+- name: Run Atomic Red Team
+  become: true
+  shell: |
+    nc -vnz 10.0.1.21 1-65535 2>&1 | grep "suc";
+  register: output_art
+
+- debug:
+    var: output_art.stdout_lines
